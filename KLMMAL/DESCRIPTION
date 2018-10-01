@@ -1,0 +1,12 @@
+Package: KLMMAL
+Type: Package
+Title: Genetic Risk Prediction Using a Multi-Kernel Linear Mixed Model with Adaptive Lasso (KLMM-AL)
+Version: 0.0.1
+Date: 2018-09-28
+Author: Yalu Wen 
+Maintainer: Yalu Wen<y.wen@auckland.ac.nz>
+Description: The R package implements KLMM-AL algorithm which is designed to build genetic risk prediction model with sequencing data.
+License: MIT
+Imports: Rcpp (>= 0.12.18), rrBLUP, snpStats, psych, KFAS, matrixcalc, quadprog, glmnet
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 6.1.0
