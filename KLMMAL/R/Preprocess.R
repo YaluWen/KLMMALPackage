@@ -96,10 +96,24 @@ ReadKLMM<-function(bed,bim,fam,  na.strings = c("0", "-9"), phenofile, trainID, 
         geno=Geno[,inc];
         nas=is.na(geno);
         # impute the missings with the average values #
-        tmpimpute=apply(geno,2,mean,na.rm=T);
-        tmpimputegs=matrix(rep(tmpimpute,nrow(geno)),nrow=nrow(geno),ncol=ncol(geno),byrow=T)
-        geno[nas]=tmpimputegs[nas];
-
+        if(!is.null(dim(geno))){
+          if(ncol(geno)>1){
+            tmpimpute=apply(geno,2,mean,na.rm=T);
+            tmpimputegs=matrix(rep(tmpimpute,nrow(geno)),nrow=nrow(geno),ncol=ncol(geno),byrow=T)
+            geno[nas]=tmpimputegs[nas];
+           }
+          if(ncol(geno)==1){
+            tmpimpute=mean(geno,na.rm=T);
+            geno[nas]=tmpimpute;
+            geno=matrix(geno,ncol=1)
+          }
+        }
+        if(is.null(dim(geno))){
+          tmpimpute=mean(geno,na.rm=T);
+          geno[nas]=tmpimpute;
+          geno=matrix(geno,ncol=1)
+        }
+                       
         tmp3=geno %*% t(geno)/ncol(geno); #tmp3=tmp/tmp2;
         add=TRUE;
         if(length(Kinship)>0)
